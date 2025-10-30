@@ -1,0 +1,7 @@
+<resources>
+    <string name="name">Name:\u0020</string>
+    <string name="company">Company:\u0020</string>
+    <string name="email">Email:\u0020</string>
+    <string name="phone">Phone:\u0020</string>
+    <string name="address">Address:\u0020</string>
+</resources>

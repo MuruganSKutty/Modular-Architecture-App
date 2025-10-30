@@ -1,10 +1,11 @@
-package com.features.user.data
+package com.core.data
 
 import com.core.network.ApiInterface
 import com.core.network.model.User
-import com.features.user.TestDispatcherProvider
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
+import io.mockk.verify
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -57,6 +58,51 @@ class UserRepositoryImplTest {
 
         try {
             userRepository.getUsers()
+            assert(false) { "Should have thrown an exception" }
+        } catch (e: RuntimeException) {
+            assertEquals("Network Error", e.message)
+        }
+    }
+
+    @Test
+    fun `when cache is empty, getUserDetails returns particular user on successful API call`() = runTest(testDispatcher) {
+        val user = User(id = "1", name = "Test User")
+
+        coEvery { apiService.getUser("1") } returns user
+
+        val result = userRepository.getUserDetails("1")
+
+        coVerify { apiService.getUser("1") }
+
+        assertEquals(user, result)
+        assertEquals("Test User", result.name)
+    }
+
+    @Test
+    fun `getUserDetails returns particular user from cache without making API call`() = runTest(testDispatcher) {
+        val id = "1"
+        val users = listOf(User(id = id, name = "Test User"))
+
+        coEvery { apiService.getUsers() } returns users
+        // fetching users list first and caching it
+        userRepository.getUsers()
+
+        val result = userRepository.getUserDetails(id)
+
+        coVerify(exactly = 0) { apiService.getUser(id) }
+
+        assertEquals(users.find { it.id == id }, result)
+        assertEquals("Test User", result.name)
+    }
+
+    @Test
+    fun `getUserDetails throws exception when API call fails`() = runTest(testDispatcher) {
+        val exception = RuntimeException("Network Error")
+
+        coEvery { apiService.getUser("") } throws exception
+
+        try {
+            userRepository.getUserDetails("")
             assert(false) { "Should have thrown an exception" }
         } catch (e: RuntimeException) {
             assertEquals("Network Error", e.message)

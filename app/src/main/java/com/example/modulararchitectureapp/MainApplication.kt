@@ -1,9 +1,11 @@
 package com.example.modulararchitectureapp
 
 import android.app.Application
+import com.core.data.di.coreDataModule
 import com.core.network.di.networkModule
 import com.example.modulararchitectureapp.di.appModule
 import com.features.user.di.userModule
+import com.features.user_details.di.userDetailsModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
 
@@ -12,7 +14,7 @@ class MainApplication : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@MainApplication)
-            modules(appModule, userModule, networkModule)
+            modules(appModule, userModule, networkModule, userDetailsModule, coreDataModule)
         }
     }
 }

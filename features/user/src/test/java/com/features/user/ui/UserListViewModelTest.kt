@@ -1,9 +1,9 @@
 package com.features.user.ui
 
+import com.core.data.UserRepository
 import com.core.network.model.User
 import com.core.network.utils.ScreenState
 import com.features.user.TestDispatcherProvider
-import com.features.user.data.UserRepository
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers

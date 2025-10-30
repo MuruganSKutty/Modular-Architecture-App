@@ -18,6 +18,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.core.network.model.User
 import com.core.network.utils.ScreenState
+import com.core.ui.components.ErrorMessage
+import com.core.ui.components.Loader
 import com.features.user.R
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -39,32 +41,8 @@ fun UserListScreens(viewModel: UserListViewModel = koinViewModel(), onItemClick:
         }
         is ScreenState.Error -> {
             val message = (uiState as ScreenState.Error).message
-            ErrorMessage(message, viewModel)
-        }
-    }
-}
-
-@Composable
-private fun Loader() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        CircularProgressIndicator()
-    }
-}
-
-@Composable
-private fun ErrorMessage(message: String, viewModel: UserListViewModel) {
-    Box(
-        modifier = Modifier.fillMaxSize().padding(24.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(text = stringResource(R.string.error) +" $message")
-            Spacer(modifier = Modifier.height(8.dp))
-            Button(onClick = { viewModel.fetchUsers() }) {
-                Text(stringResource(R.string.retry))
+            ErrorMessage(message) {
+                viewModel.fetchUsers()
             }
         }
     }
