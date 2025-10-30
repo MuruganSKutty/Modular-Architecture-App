@@ -1,4 +1,4 @@
-package com.core.network.utils
+package com.core.common
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

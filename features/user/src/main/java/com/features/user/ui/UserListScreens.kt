@@ -16,8 +16,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.core.network.model.User
-import com.core.network.utils.ScreenState
+import com.core.common.ScreenState
+import com.core.common.model.User
 import com.core.ui.components.ErrorMessage
 import com.core.ui.components.Loader
 import com.features.user.R

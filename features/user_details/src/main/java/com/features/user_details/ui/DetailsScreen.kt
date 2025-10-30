@@ -3,8 +3,8 @@ package com.features.user_details.ui
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import com.core.network.model.User
-import com.core.network.utils.ScreenState
+import com.core.common.ScreenState
+import com.core.common.model.User
 import com.core.ui.components.ErrorMessage
 import com.core.ui.components.Loader
 import org.koin.androidx.compose.koinViewModel

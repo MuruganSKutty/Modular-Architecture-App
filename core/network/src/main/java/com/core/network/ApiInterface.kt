@@ -1,6 +1,6 @@
 package com.core.network
 
-import com.core.network.model.User
+import com.core.common.model.User
 import retrofit2.http.GET
 import retrofit2.http.Path
 

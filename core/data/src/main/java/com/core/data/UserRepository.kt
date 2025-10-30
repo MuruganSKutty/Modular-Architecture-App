@@ -1,6 +1,6 @@
 package com.core.data
 
-import com.core.network.model.User
+import com.core.common.model.User
 
 interface UserRepository {
     suspend fun getUsers(): List<User>

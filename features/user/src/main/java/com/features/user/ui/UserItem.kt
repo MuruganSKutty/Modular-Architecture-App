@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.core.network.model.User
+import com.core.common.model.User
 
 @Composable
 fun UserItem(user: User, onItemClick: (String) -> Unit) {

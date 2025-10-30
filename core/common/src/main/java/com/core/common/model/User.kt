@@ -1,4 +1,4 @@
-package com.core.network.model
+package com.core.common.model
 
 
 data class User(

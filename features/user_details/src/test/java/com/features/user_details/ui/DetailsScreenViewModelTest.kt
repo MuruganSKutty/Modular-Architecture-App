@@ -1,14 +1,12 @@
-package com.features.user.ui
+package com.features.user_details.ui
 
 import com.core.data.UserRepository
 import com.core.network.model.User
 import com.core.network.utils.ScreenState
-import com.features.user.TestDispatcherProvider
+import com.features.user_details.TestDispatcherProvider
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.resetMain
@@ -19,12 +17,10 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-@OptIn(ExperimentalCoroutinesApi::class)
-class UserListViewModelTest {
-
+class DetailsScreenViewModelTest {
     private val testDispatcher = StandardTestDispatcher()
     private lateinit var repository: UserRepository
-    private lateinit var viewModel: UserListViewModel
+    private lateinit var viewModel: DetailsScreenViewModel
     private lateinit var dispatcherProvider: TestDispatcherProvider
 
     @BeforeEach
@@ -32,7 +28,7 @@ class UserListViewModelTest {
         Dispatchers.setMain(testDispatcher)
         repository = mockk()
         dispatcherProvider = TestDispatcherProvider(testDispatcher)
-        viewModel = UserListViewModel(repository, dispatcherProvider)
+        viewModel = DetailsScreenViewModel(repository, dispatcherProvider)
     }
 
     @AfterEach
@@ -41,40 +37,26 @@ class UserListViewModelTest {
     }
 
     @Test
-    fun `when fetchUsers called, uiState should be Loading first`() = runTest {
-        coEvery { repository.getUsers() } coAnswers {
-            delay(100)
-            listOf(User("John"))
-        }
-        viewModel = UserListViewModel(repository, dispatcherProvider)
+    fun `when fetchUserDetails is successful, uiState should be Success`() = runTest {
+        val id = "1"
+        val user = User(id, "John")
+        coEvery { repository.getUserDetails(id) } returns user
 
-        viewModel.fetchUsers()
-
-        assert(viewModel.uiState.value is ScreenState.Loading)
-
-        advanceUntilIdle()
-        assert(viewModel.uiState.value is ScreenState.Success)
-    }
-
-    @Test
-    fun `when fetchUsers is successful, uiState should be Success`() = runTest {
-        val users = listOf(User("1", "John"), User("2", "Alex"))
-        coEvery { repository.getUsers() } returns users
-
-        viewModel.fetchUsers()
+        viewModel.fetchUserDetails(id)
         advanceUntilIdle()
 
         val state = viewModel.uiState.value
         assert(state is ScreenState.Success)
-        assertEquals(users, (state as ScreenState.Success).data)
+        assertEquals(user, (state as ScreenState.Success).data)
     }
 
     @Test
-    fun `when fetchUsers fails, uiState should be Error`() = runTest {
+    fun `when fetchUserDetails fails, uiState should be Error`() = runTest {
+        val id = "1"
         val errorMessage = "An error occurred, please try again"
-        coEvery { repository.getUsers() } throws Exception(errorMessage)
+        coEvery { repository.getUserDetails(id) } throws Exception(errorMessage)
 
-        viewModel.fetchUsers()
+        viewModel.fetchUserDetails(id)
         advanceUntilIdle()
 
         val state = viewModel.uiState.value
@@ -83,26 +65,26 @@ class UserListViewModelTest {
     }
 
     @Test
-    fun `retry should call fetchUsers again`() = runTest {
+    fun `retry should call fetchUserDetails again`() = runTest {
+        val id = "1"
         val errorMessage = "An error occurred, please try again"
-        coEvery { repository.getUsers() } throws Exception(errorMessage)
+        coEvery { repository.getUserDetails(id) } throws Exception(errorMessage)
 
-        viewModel.fetchUsers()
+        viewModel.fetchUserDetails(id)
         advanceUntilIdle()
 
         var state = viewModel.uiState.value
         assert(state is ScreenState.Error)
 
-        val users = listOf(User("Alex"))
-        coEvery { repository.getUsers() } returns users
+        val user = User("1", "Alex")
+        coEvery { repository.getUserDetails("1") } returns user
 
-        // calling fetchUsers again to simulate the retry click
-        viewModel.fetchUsers()
+        // calling fetchUserDetails again to simulate the retry click
+        viewModel.fetchUserDetails(id)
         advanceUntilIdle()
 
         state = viewModel.uiState.value
         assert(state is ScreenState.Success)
-        assertEquals(users, (state as ScreenState.Success).data)
+        assertEquals(user, (state as ScreenState.Success).data)
     }
-
 }

@@ -48,9 +48,9 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
 
-    implementation(project(":core:network"))
     implementation(project(":core:ui"))
     implementation(project(":core:data"))
+    implementation(project(":core:common"))
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)

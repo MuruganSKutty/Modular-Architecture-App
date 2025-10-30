@@ -1,8 +1,8 @@
 package com.core.data
 
+import com.core.common.DispatcherProvider
+import com.core.common.model.User
 import com.core.network.ApiInterface
-import com.core.network.model.User
-import com.core.network.utils.DispatcherProvider
 import kotlinx.coroutines.withContext
 
 class UserRepositoryImpl(

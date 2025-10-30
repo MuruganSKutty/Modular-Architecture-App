@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.core.network"
+    namespace = "com.core.common"
     compileSdk {
         version = release(36)
     }
@@ -38,18 +38,6 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-
-    implementation(platform(libs.koin.bom))
-    implementation(libs.koin.core)
-    implementation(project(":core:common"))
-
-    // Retrofit
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.gson)
-    // okhttp
-    implementation(libs.okhttp)
-    implementation(libs.okhttp.logging)
-
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

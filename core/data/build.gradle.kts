@@ -43,6 +43,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(project(":core:network"))
+    implementation(project(":core:common"))
     implementation(platform(libs.koin.bom))
     implementation(libs.koin.core)
     testImplementation(libs.junit)

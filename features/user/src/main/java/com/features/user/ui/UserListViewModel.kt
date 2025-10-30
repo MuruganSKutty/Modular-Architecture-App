@@ -4,10 +4,10 @@ import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.core.common.DispatcherProvider
+import com.core.common.ScreenState
+import com.core.common.model.User
 import com.core.data.UserRepository
-import com.core.network.model.User
-import com.core.network.utils.DispatcherProvider
-import com.core.network.utils.ScreenState
 import kotlinx.coroutines.launch
 
 class UserListViewModel(val userRepository: UserRepository, val dispatcherProvider: DispatcherProvider) : ViewModel() {
@@ -26,7 +26,7 @@ class UserListViewModel(val userRepository: UserRepository, val dispatcherProvid
                 _uiState.value = ScreenState.Success(users)
             } catch (e: Exception) {
                 Log.e(TAG, "Get users api failed with error: ${e.message}")
-                _uiState.value = ScreenState.Error(e.localizedMessage ?: "Something went wrong")
+                _uiState.value = ScreenState.Error("An error occurred, please try again")
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.core.network.utils
+package com.core.common
 
 sealed class ScreenState<out T> {
     object Loading : ScreenState<Nothing>()
