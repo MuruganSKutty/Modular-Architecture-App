@@ -22,3 +22,5 @@ dependencyResolutionManagement {
 rootProject.name = "Modular Architecture App"
 include(":app")
 include(":core:network")
+include(":features:user")
+include(":features:user_details")
