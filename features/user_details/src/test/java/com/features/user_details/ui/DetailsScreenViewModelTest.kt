@@ -1,8 +1,8 @@
 package com.features.user_details.ui
 
+import com.core.common.ScreenState
+import com.core.common.model.User
 import com.core.data.UserRepository
-import com.core.network.model.User
-import com.core.network.utils.ScreenState
 import com.features.user_details.TestDispatcherProvider
 import io.mockk.coEvery
 import io.mockk.mockk

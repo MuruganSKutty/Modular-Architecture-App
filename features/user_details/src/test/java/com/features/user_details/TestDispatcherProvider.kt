@@ -1,6 +1,6 @@
 package com.features.user_details
 
-import com.core.network.utils.DispatcherProvider
+import com.core.common.DispatcherProvider
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestDispatcher

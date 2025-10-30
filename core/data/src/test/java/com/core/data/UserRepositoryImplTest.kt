@@ -1,7 +1,7 @@
 package com.core.data
 
+import com.core.common.model.User
 import com.core.network.ApiInterface
-import com.core.network.model.User
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
