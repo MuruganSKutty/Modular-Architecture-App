@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Modular Architecture App"
 include(":app")
- 
+include(":core:network")
