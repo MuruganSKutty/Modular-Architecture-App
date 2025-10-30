@@ -12,5 +12,5 @@ import org.koin.dsl.module
 // define the object here which are needed for user module
 val userModule = module {
     single<UserRepository> { UserRepositoryImpl(get<ApiInterface>(), get()) }
-    viewModel {UserListViewModel(get<UserRepository>()) }
+    viewModel {UserListViewModel(get<UserRepository>(), get()) }
 }

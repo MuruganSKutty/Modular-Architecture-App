@@ -57,7 +57,7 @@ private fun Loader() {
 @Composable
 private fun ErrorMessage(message: String, viewModel: UserListViewModel) {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().padding(24.dp),
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
